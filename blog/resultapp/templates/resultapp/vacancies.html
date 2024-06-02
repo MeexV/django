@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <!-- Content section-->
+        <section class="py-5">
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <h2>Форма для поиска</h2>
+                        <br>
+                        <form action = "{% url 'resultapp:result' %}" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <br>
+                            <input type="submit" value="Показать отчет" class="btn btn-dark">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
