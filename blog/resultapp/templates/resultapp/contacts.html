@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <!-- Content section-->
+        <section class="py-5">
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <h2>Контакты</h2>
+                        <p class="lead"> </p>
+                         <ul class="ms-auto mb-2 mb-lg-0">
+                             <li class="lead">email: {{context.email}} </li>
+                             <li class="lead">{{context.number}} </li>
+                             <li class="lead">Адрес:{{context.adres}} </li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
