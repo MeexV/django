@@ -21,7 +21,7 @@ class Vacancies(models.Model):
     totalvacancies = models.IntegerField(null=True)
     avgsalaryFrom = models.FloatField(null=True, default=0)
     avgsalaryTo = models.FloatField(null=True, default=0)
-    requirements = models.ManyToManyField(Requirements)
+    requirements = models.ManyToManyField(Requirements, related_name='vacancies')
 
     def __str__(self):
         return self.vacancyname

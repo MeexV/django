@@ -8,7 +8,7 @@
                     <div class="col-lg-6">
                         <h2>Форма для поиска</h2>
                         <br>
-                        <form action = "{% url 'resultapp:result' %}" method="post">
+                        <form  method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <br>
