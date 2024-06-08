@@ -1,4 +1,5 @@
 from django.db import models
+from usersapp.models import ParsUser
 
 # Create your models here.
 
@@ -22,6 +23,7 @@ class Vacancies(models.Model):
     avgsalaryFrom = models.FloatField(null=True, default=0)
     avgsalaryTo = models.FloatField(null=True, default=0)
     requirements = models.ManyToManyField(Requirements, related_name='vacancies')
+    #user = models.ManyToManyField(ParsUser, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.vacancyname

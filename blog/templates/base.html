@@ -24,6 +24,18 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'resultapp:index' %}">Главная</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'resultapp:vacancies' %}">Форма</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'resultapp:contacts' %}">Контакты</a></li>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                        <form method="POST" action="{% url 'users:logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0;">Выход</button>
+                    </form>
+                </li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'usersapp:login' %}">Вход</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'usersapp:register' %}">Регистрация</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
