@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django import forms
 from django.urls import reverse_lazy
@@ -16,7 +17,7 @@ class VacanciesForm(forms.Form):
 class MainView(TemplateView):
     template_name = 'resultapp/index.html'
 
-class VacanciesView(FormView):
+class VacanciesView(LoginRequiredMixin, FormView):
     template_name = 'resultapp/vacancies.html'
     form_class = VacanciesForm
 
@@ -56,7 +57,7 @@ class VacanciesView(FormView):
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
 
-class ResultView(TemplateView):
+class ResultView(LoginRequiredMixin, TemplateView):
     template_name = 'resultapp/result.html'
 
     def get_context_data(self, **kwargs):

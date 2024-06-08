@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'resultapp',
+    'usersapp',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Переназначение пользователя
+AUTH_USER_MODEL = 'usersapp.ParsUser'
+
+#Переход после логина
+LOGIN_REDIRECT_URL = '/'
+#Переход после выхода
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/login/'
