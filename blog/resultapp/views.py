@@ -4,7 +4,7 @@ from django import forms
 from django.urls import reverse_lazy
 
 from resultapp.parser import parser_vacancies
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
 from .models import Vacancies, Requirements, Skills
 from django.shortcuts import redirect
 # Create your views here.
@@ -20,7 +20,6 @@ class MainView(TemplateView):
 class VacanciesView(LoginRequiredMixin, FormView):
     template_name = 'resultapp/vacancies.html'
     form_class = VacanciesForm
-
     def form_valid(self, form):
         vacancy_name = form.cleaned_data['vacancy_name']
         vacancy_area = form.cleaned_data['vacancy_area']
@@ -36,6 +35,7 @@ class VacanciesView(LoginRequiredMixin, FormView):
             avgsalaryFrom=result['Средняя зарплата до'],
             avgsalaryTo=result['Средняя зарплата от']
         )
+
         requirements = [x for x in result['Требования']]
         for requirement in requirements:
             skill_name = requirement.get('Навыки')
@@ -65,12 +65,21 @@ class ResultView(LoginRequiredMixin, TemplateView):
         context['vacancies'] = Vacancies.objects.all()
         return context
 
-class ContactsView(TemplateView):
+class ContactsView(ListView):
     template_name = 'resultapp/contacts.html'
+    paginate_by = 1
+    context_object_name = 'context'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['email'] = 'HHParser@gmail.ru'
-        context['number'] = '+7 (654) 651-51-88'
-        context['adres'] = 'г. Москва, 2-й Кожевнический переулок, 11'
+    def get_queryset(self):
+        context = [
+            ['HHParser@gmail.ru', '+7 (654) 651-51-88','г. Москва, 2-й Кожевнический переулок,11'],
+            ['HHPar@gmail.ru','+7 (654) 651-51-22', 'г. Омск, Комсомольский проспект,22']
+        ]
         return context
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['email'] = 'HHParser@gmail.ru'
+    #     context['number'] = '+7 (654) 651-51-88'
+    #     context['adres'] = 'г. Москва, 2-й Кожевнический переулок,11'
+    #     return context

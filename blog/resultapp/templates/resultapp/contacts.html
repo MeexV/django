@@ -8,11 +8,42 @@
                     <div class="col-lg-6">
                         <h2>Контакты</h2>
                         <p class="lead"> </p>
-                         <ul class="ms-auto mb-2 mb-lg-0">
-                             <li class="lead">email: {{email}} </li>
-                             <li class="lead">{{number}} </li>
-                             <li class="lead">Адрес:{{adres}} </li>
-                         </ul>
+<!--                         <ul class="ms-auto mb-2 mb-lg-0">-->
+<!--                             <li class="lead">email: {{email}} </li>-->
+<!--                             <li class="lead">{{number}} </li>-->
+<!--                             <li class="lead">Адрес:{{adres}} </li>-->
+<!--                         </ul>-->
+<!--                        <hr>-->
+                        <ul class="ms-auto mb-2 mb-lg-0">
+                        {% for contact in context %}
+                        <li class="lead">email: {{contact.0}} </li>
+                        <li class="lead">{{contact.1}} </li>
+                        <li class="lead">Адрес:{{contact.2}} </li>
+                            <hr>
+                        {% endfor %}
+                         <div class="pagination">
+                         <span aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=1"> First</a>
+                                    </li>
+                                {% endif %}
+
+                                <li class="current">
+                                    <span class="page-link disabled">
+                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                    </span>
+                                </li>
+
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
