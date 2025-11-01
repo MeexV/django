@@ -5,3 +5,6 @@ from .models import Skills,Vacancies,Requirements
 admin.site.register(Skills)
 admin.site.register(Requirements)
 admin.site.register(Vacancies)
+
+def set_active(queryset):
+    queryset.update(is_active=True)
