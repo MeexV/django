@@ -7,7 +7,8 @@ from resultapp.parser import parser_vacancies
 from django.views.generic import TemplateView, FormView, ListView
 from .models import Vacancies, Requirements, Skills
 from django.shortcuts import redirect
-# Create your views here.
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
 class VacanciesForm(forms.Form):
@@ -62,8 +63,13 @@ class ResultView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['vacancies'] = Vacancies.objects.all()
+        context['vacancy'] = Vacancies.objects.last()
+        if context['vacancy']:
+            context['requirements'] = context['vacancy'].requirements.select_related('skills').all()
+        else:
+            context['requirements'] = []
         return context
+
 
 class ContactsView(ListView):
     template_name = 'resultapp/contacts.html'

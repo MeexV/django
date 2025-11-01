@@ -1,47 +1,47 @@
 {% extends "base.html" %}
-
 {% block content %}
-        <!-- Content section-->
-          <section class="py-5">
-        <div class="container my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h2>Результаты</h2>
-                    <br>
-                    <ul>
-                        <li class="lead">Вакансия: {{ vacancies.0.vacancyname }} </li>
-                        <li class="lead">Всего вакансий: {{ vacancies.0.totalvacancies }} </li>
-                        <li class="lead">Город: {{ vacancies.0.vacancyarea }} </li>
-                        <li class="lead">Средняя зарплата от: {{ vacancies.0.avgsalaryFrom }} руб. </li>
-                        <li class="lead">Средняя зарплата до: {{ vacancies.0.avgsalaryTo }} руб. </li>
-                        <li class="lead">Требования: {{ vacancies.requirements.all }}</li>
-                    </ul>
-                    <table class="table">
-                        <thead class="lead">
-                            <tr>
-                                <th scope="col">Номер</th>
-                                <th scope="col">Навык</th>
-                                <th scope="col">Количество</th>
-                                <th scope="col">Процент упоминаний</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+<section class="py-5">
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        {% if vacancy %}
+          <h2>Результаты</h2>
+          <br>
+          <ul>
+            <li class="lead">Вакансия: {{ vacancy.vacancyname }}</li>
+            <li class="lead">Всего вакансий: {{ vacancy.totalvacancies }}</li>
+            <li class="lead">Город: {{ vacancy.vacancyarea }}</li>
+            <li class="lead">Средняя зарплата от: {{ vacancy.avgsalaryFrom }} руб.</li>
+            <li class="lead">Средняя зарплата до: {{ vacancy.avgsalaryTo }} руб.</li>
+          </ul>
 
-<!--                            {% for requirement in vacancies.requirements.all %}-->
-<!--                            <tr>-->
-<!--                                <th align="center" scope="row">{{ forloop.counter }}</th>-->
-<!--                                <td align="center">{{ requirement.skills.skillname }}</td>-->
-<!--                                <td align="center">{{ requirement.quantity }}</td>-->
-<!--                                <td align="center">{{ requirement.percentage }}</td>-->
-<!--                            </tr>-->
-<!--                            {% endfor %}-->
-
-
-                        </tbody>
-                    </table>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </section>
+          <table class="table">
+            <thead class="lead">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Навык</th>
+                <th scope="col">Количество</th>
+                <th scope="col">Процент упоминаний</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for req in requirements %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ req.skills.skillname }}</td>
+                <td>{{ req.quantity }}</td>
+                <td>{{ req.percentage }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="4" class="text-center">Нет данных</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p>Нет сохранённых результатов.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
