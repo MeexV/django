@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <section class="py-5">
+            <div class="container my-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+
+                    {% csrf_token %}
+                    Профиль пользователя {{object.username}}
+                        <hr>
+
+                        Токен: {% if object.auth_token %} {{object.auth_token}} {% else %} не создан {% endif %}
+
+                        <form action="{% url 'users:create_token' %}">
+                            <br>
+                            <button type="submit" class="btn btn-primary">Create token</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
