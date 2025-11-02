@@ -26,8 +26,10 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'resultapp:vacancies' %}">Форма</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'resultapp:contacts' %}">Контакты</a></li>
 
+
                         {% if user.is_authenticated %}
-                        <li class="nav-item">
+                        <li class="nav-link">
+                            Привет <a href="{% url 'users:profile' pk=user.pk %}"> {{user.username}}</a>
                         <form method="POST" action="{% url 'users:logout' %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0;">Выход</button>
