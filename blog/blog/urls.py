@@ -17,11 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import blog.settings as settings
+from resultapp.api_views import RequirementsViewSet, SkillsViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'requirements', RequirementsViewSet)
+router.register(r'skills', SkillsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('resultapp.urls', namespace='resultapp')),
-    path('users/', include('usersapp.urls', namespace='users'))
+    path('users/', include('usersapp.urls', namespace='users')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/v0/', include(router.urls)),
 
 ]
 
